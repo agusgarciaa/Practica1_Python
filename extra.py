@@ -9,16 +9,64 @@
 # Se deben manejar situaciones como intentar agregar un equipo ya existente, registrar un resultado con un equipo
 # desconocido, o ingresar un marcador con formato inválido.
 
-tabla = {
+table = {
 
 }
 
-def agregar_equipo():
-    equipo = input("Ingrese el nombre del equipo: ")
-    if equipo in tabla:
+def add_team():  
+    team = input("Ingrese el nombre del equipo: ")
+
+    if team in table:
         print("El equipo ya existe en el torneo.")
     else:
-        tabla[equipo] = {"Puntuacion:" : 0}
+        table[team] = {"Puntos": 0}                                      # Generar equipo si no lo encuentra. Case sensitive
+
+
+def add_result():
+    while len(table) < 2:
+        print("No hay suficientes equipos para agregar un resultado. Agregue algunos equipos: ")
+        add_team()
+
+    local = input("Ingrese al equipo local: ")
+
+    while local not in table:
+        print("Este equipo no forma parte del torneo. Intente otra vez. ")
+        local = input("Ingrese al equipo local: ")
+    
+    visitor = input("Ingrese al equipo visitante: ")
+
+    while visitor not in table:
+        print("Este equipo no forma parte del torneo. Intente otra vez. ")
+        visitor = input("Ingrese al equipo visitante: ")
+    
+    while True:
+        score = input("Ingrese marcador del partido (Formato 4 - 2): ")
+
+        if "-" not in score:
+            print("Formato no válido.")
+            continue
+
+        goals = score.split()                                           # Crea una lista con los goles (y el guion)
+
+        if goals[0].isdigit() and goals[2].isdigit():
+            local_goals = int(goals[0])
+            visitor_goals = int(goals[2])
+            break
+        else:
+            print("Formato no válido.")
+
+    if local_goals > visitor_goals:
+        print(f"Gano {local}")
+        table[local]["Puntos"] += 3
+    elif visitor_goals > local_goals:
+        print(f"Gano {visitor}")
+        table[visitor]["Puntos"] += 3
+    elif visitor_goals == local_goals:
+        table[local]["Puntos"] += 1
+        table[visitor]["Puntos"] += 1
+    
+    for team, data in table.items():
+        print(f"{team}: {data['Puntos']} puntos")                           # Ayuda de Ia para imprimirlo de manera mas prolija.                   
 
 print ("Bienvenido a la tabla de posiciones del Torneo")
 while True:
@@ -33,7 +81,8 @@ while True:
     option = int(input())
     match option:
         case 1:
-            agregar_equipo()
-
+            add_team()
+        case 2:
+            add_result()
         case 5:
             break
