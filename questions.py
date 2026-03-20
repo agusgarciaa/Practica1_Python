@@ -35,7 +35,15 @@ while attempts > 0:
     print(f"Intentos restantes: {attempts}")
     print(f"Letras usadas: {', '.join(guessed)}")
 
-    letter = input("Ingresá una letra: ")
+    letter = str(input("Ingresá una letra: "))
+
+    #El juego tiene un bug. Si el usuario ingresa más de una letra, un número o cualquier otro carácter inválido,
+    #el programa se comporta de manera inesperada. Modificalo para que en ese caso
+    #muestre el mensaje
+    #"Entrada no válida" y continúe el juego en la siguiente iteración.
+    if len(letter) != 1 or not ('a' <= letter <= 'z' or 'A' <= letter <= 'Z'):
+        print("Entrada no válida")
+        continue
 
     if letter in guessed:
         print("Ya usaste esa letra.")
@@ -50,3 +58,5 @@ while attempts > 0:
     print()
 else:
     print(f"¡Perdiste! La palabra era: {word}")
+
+
