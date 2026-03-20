@@ -1,23 +1,35 @@
 import random
 
-words = [
-    "python",
-    "programa",
-    "variable",
-    "funcion",
-    "bucle",
-    "cadena",
-    "entero",
-    "lista",
-]
-
-word = random.choice(words)
-guessed = []
-attempts = 6
+# Modificá el juego para que las palabras estén agrupadas por categoría.
+# Al inicio de cada partida, mostrar las categorías disponibles y permitir
+# que el usuario elija una. 
+dictionary = {
+    "Lenguajes": ["python", "pascal", "java"], #Agrego algunos lenguajes extras.
+    "Conceptos": ["programa", "variable", "funcion", "bucle"],
+    "Tipos de datos": ["cadena", "entero", "lista",]
+    }
 
 print("¡Bienvenido al Ahorcado!")
 print()
 score = 0
+
+print("Categorias disponibles: ")
+i = 1
+for category in dictionary:
+    print(f"-{category}")
+    i += 1
+
+while True:
+    choice = input("Elija una categoria: ")
+    if choice in dictionary: 
+        break
+    else:
+        print("Opción no válida. Por favor, intente otra vez.")
+    
+word = random.choice(dictionary[choice])
+guessed = []
+attempts = 6
+print(f"Has elegido la categoria: {choice}")
 
 while attempts > 0:
     # Mostrar progreso: letras adivinadas y guiones para las que faltan
