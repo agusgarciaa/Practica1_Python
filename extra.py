@@ -73,6 +73,18 @@ def show_table():
     else:
         print("La tabla esta vacia.")
 
+
+def delete_team():
+    if len(table) != 0:
+        deleted_one = input("Ingrese el equipo a eliminar: ")
+        if deleted_one not in table:
+            print("El equipo no esta en la tabla.")
+        else:
+            del table[deleted_one]
+            print(f"Se elimino al equipo {deleted_one}")
+    else:
+        print("La tabla esta vacia. No es posible eliminar equipos.")
+
 print ("Bienvenido a la tabla de posiciones del Torneo")
 while True:
     print(""" ¿Qué desea hacer?: 
@@ -91,5 +103,7 @@ while True:
             add_result()
         case 3: 
             show_table()
+        case 4:
+            delete_team()
         case 5:
             break
