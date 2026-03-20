@@ -17,6 +17,7 @@ attempts = 6
 
 print("¡Bienvenido al Ahorcado!")
 print()
+score = 0
 
 while attempts > 0:
     # Mostrar progreso: letras adivinadas y guiones para las que faltan
@@ -29,6 +30,7 @@ while attempts > 0:
     print(progress)
     # Verificar si el jugador ya adivinó la palabra completa
     if "_" not in progress:
+        score += 6 
         print("¡Ganaste!")
         break
 
@@ -53,10 +55,16 @@ while attempts > 0:
     else:
         guessed.append(letter)
         attempts -= 1
+        score -= 1
         print("Esa letra no está en la palabra.")
 
     print()
 else:
     print(f"¡Perdiste! La palabra era: {word}")
+    score = 0
 
-
+# Modificá el juego para que al final de la partida se muestre el puntaje
+# del jugador. El puntaje se calcula de la siguiente forma: cada letra
+# incorrecta resta 1 punto, adivinar la palabra completa suma 6 puntos,
+# y perder deja el puntaje en 0.
+print(f"Tu puntaje fue de: {score}")
