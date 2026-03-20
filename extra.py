@@ -19,7 +19,7 @@ def add_team():
     if team in table:
         print("El equipo ya existe en el torneo.")
     else:
-        table[team] = {"Puntos": 0}                                      # Generar equipo si no lo encuentra. Case sensitive
+        table[team] = {"Puntos":0}                                      # Generar equipo si no lo encuentra. Case sensitive
 
 
 def add_result():
@@ -64,9 +64,14 @@ def add_result():
     elif visitor_goals == local_goals:
         table[local]["Puntos"] += 1
         table[visitor]["Puntos"] += 1
-    
-    for team, data in table.items():
-        print(f"{team}: {data['Puntos']} puntos")                           # Ayuda de Ia para imprimirlo de manera mas prolija.                   
+                      
+
+def show_table():
+    if len(table) != 0:
+        for team, score in sorted(table.items(), key=lambda x: x[1]["Puntos"], reverse=True):
+            print(f"{team}: {score['Puntos']} puntos")
+    else:
+        print("La tabla esta vacia.")
 
 print ("Bienvenido a la tabla de posiciones del Torneo")
 while True:
@@ -84,5 +89,7 @@ while True:
             add_team()
         case 2:
             add_result()
+        case 3: 
+            show_table()
         case 5:
             break
